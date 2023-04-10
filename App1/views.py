@@ -61,7 +61,7 @@ def buscar(request):
         mensaje="No has introducido ningun producto."
 
     
-    return HttpResponse(mensaje)
+    return render(request, "limpio.html", {"mensaje":mensaje})
 
 def crear_opinion(request):
 
