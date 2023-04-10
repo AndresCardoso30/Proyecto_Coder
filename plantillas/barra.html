@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+    #barra{
+        margin: 0 auto;
+        padding: 0;
+        list-style-type: none;
+        text-align: center;
+        display:table;
+        width:100%;
+        overflow: hidden;
+        top:0;
+        position:fixed;
+        background-color: black;
+        box-sizing: border-box;
+        position: relative;
+        
+        
+    }
+
+    #div{
+        display:inline;
+        float:left;
+        position: relative;
+        
+        
+    }
+
+  
+
+    #a{
+        display:inline-block;
+        width: 100px;
+        color: bisque;
+        padding: 10px 16px;
+        text-decoration: none;
+        text-align: center;
+        margin-left: 100px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: small;
+        margin-top: 0;
+        
+        
+
+
+
+    }
+
+    #a:hover {
+    background-color: bisque;
+    color: black;
+
+    }
+
+   
+
+
+
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="body"><strong>
+    <nav class="navbar navbar-light bg-light static-top" id="barra">
+        <div class="container" id="div">
+            <a class="navbar-brand" href="{% url 'inicio' %}" id="a">Inicio</a>
+            <a class="navbar-brand" href="{% url 'crear_usuario' %}" id="a">Crear usuario</a>
+            <a class="navbar-brand" href="{% url 'crear_articulo' %}" id="a">Crear articulo</a>
+            <a class="navbar-brand" href="{% url 'buscar' %}" id="a">Buscar articulo</a>
+            <a class="navbar-brand" href="{% url 'opiniones' %}" id="a">Opiniones</a>
+            <a class="btn btn-primary" href="#NADAAUN" id="a">INICIAR</a>
+        </div>
+    </nav>
+</strong>
+</body>
+</html>

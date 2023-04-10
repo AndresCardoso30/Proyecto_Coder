@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %} Crear un Usuario{% endblock %}
+
+{% block content %} 
+
+
+<body>
+
+    {% if formulario.errors %}
+    <p style="color: red;"> Existen errores en los datos, revisar:</p>
+    {% endif %}
+    <p style="color: black; font-family: Verdana, Geneva, Tahoma, sans-serif;"> Creacion de nuevo usuario:</p>
+    <p style="color: red">{{nota}}</p>
+    <form action="" method="POST"> {% csrf_token %}
+        <table>
+            {{formulario.as_table}}
+
+
+        </table>
+
+        <input type="submit", value="Aceptar",>
+
+
+
+    </form>
+</body>
+{% endblock %}

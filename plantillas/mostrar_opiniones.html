@@ -1,0 +1,51 @@
+
+{% extends "base.html" %}
+
+{% block title %} Opiniones{% endblock %}
+
+{% block content %} 
+
+
+<body>
+
+    <p style="color: black; font-family: Verdana, Geneva, Tahoma, sans-serif;"> Opiniones: </p>
+    
+    <p>
+        <ul>
+
+            {% for opinion in opiniones %}
+                <li>
+                    {{opinion.articulo}} -- {{opinion.fecha}}<br>{{opinion.comentario}}
+
+
+                </li>
+                
+            {% endfor %}
+        </ul>
+
+
+
+    </p>
+
+    <p>
+
+        <button onclick="location.href='opinion_crear'">Escribe una opinion</button>
+    </p>
+</body>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %} Busqueda de articulos{% endblock %}
+
+{% block content %} 
+<body>
+    <p style="color: bisque; font-family: Verdana, Geneva, Tahoma, sans-serif;">Ingrese el articulo que desea buscar: </p>
+    <form action="/buscar/" method="GET">
+        <input type="text" name="art">
+
+        <input type="submit" value="Buscar">
+    
+    </form>
+
+
+</body>
+</html>
+{% endblock %}

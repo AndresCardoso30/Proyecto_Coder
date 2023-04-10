@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+body {
+  margin: 0;
+  margin-bottom: 10px;
+  background-size: cover;
+}
+
+#footer {
+  background-color: black;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: bisque;
+}
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title%}{% endblock %}
+    </title>
+</head>
+<body style="background-image: url('https://th.bing.com/th/id/R.065580938b36e4c049ec033745248216?rik=1tjWkCBd3CvFWw&riu=http%3a%2f%2fwallpapers.org.es%2fwp-content%2fuploads%2f2012%2f09%2fdegradados_azules_1920x1200_127.jpeg&ehk=zzq%2fVcYr6CQ%2bsxLBpsAVKfXbCV9%2fOV0QarUQS0h31%2bY%3d&risl=&pid=ImgRaw&r=0');">
+  
+
+    {% include "barra.html" %}
+
+    <h1 style="color: black; text-align: center;"><strong>Tienda web "Coder"</strong></h1>
+
+    {% block content %} {% endblock %}
+
+
+    <footer style="text-align: right; width:100%; margin-left: 0px;" id="footer">Probando Django!</footer>
+</body>
+</html>
