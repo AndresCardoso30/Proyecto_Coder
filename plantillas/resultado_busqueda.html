@@ -13,6 +13,8 @@
         {% for articulo in articulos %}
             <li>
                 {{articulo.nombre}} -- ${{articulo.precio}}
+                <a class="btn btn danger" href="{% url 'eliminar_articulo' articulo.id %}">Eliminar</a>
+                <a class="btn btn danger" href="{% url 'editar_articulo' articulo.id %}">Editar</a>
 
 
             </li>

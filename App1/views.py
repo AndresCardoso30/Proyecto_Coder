@@ -87,11 +87,35 @@ def crear_opinion(request):
 def mostrar_opinion(request):
 
     opiniones=Opiniones.objects.all()
-    #articulos=opiniones["articulo"]
-    #comentarios=opiniones["comentario"]
-    #fecha=opiniones["fecha"]
 
     return render(request, "mostrar_opiniones.html", {"opiniones": opiniones})
+
+def eliminar_articulo(request, id):
+
+    articulo=Articulo.objects.get(id=id)
+    articulo.delete()
+    mensaje="Articulo eliminado correctamente."
+    return render(request, "busqueda_articulos.html")
+
+def editar_articulo(request, id):
+    articulo=Articulo.objects.get(id=id)
+    if request.method == "POST":
+        formulario=ArticuloCrear(request.POST)
+        if formulario.is_valid():
+            informacion=formulario.cleaned_data
+            articulo.nombre=informacion['nombre']
+            articulo.categoria=informacion['categoria']
+            articulo.precio=informacion['precio']
+            
+            articulo.save()
+            return render(request, "busqueda_articulos.html")
+    
+    else:
+        formulario=ArticuloCrear(initial={'nombre':articulo.nombre, 'categoria':articulo.categoria, 'precio':articulo.precio})
+    
+    return render(request, "editar_articulo.html", {'formulario':formulario, 'articulo':articulo})
+
+        
 
 
 
