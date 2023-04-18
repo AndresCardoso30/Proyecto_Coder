@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %} Inicio {% endblock %}
+
+{% block content %} 
+<body>
+    <h2 style=" font-family: Verdana, Geneva, Tahoma, sans-serif; color:white; text-align: center;">{{mensaje}}</h2>
+    <form action="{% url 'registro' %}" method="POST"> {% csrf_token %}
+              
+         {{ form.as_p}}
+        
+        <input type="submit" value="Registrarse">
+
+    </form>
+
+</body>
+{% endblock %}

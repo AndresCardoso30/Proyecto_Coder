@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse
 from App1.models import Usuario, Articulo, Opiniones
 from App1.forms import *
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
 
 
 
@@ -115,7 +117,52 @@ def editar_articulo(request, id):
     
     return render(request, "editar_articulo.html", {'formulario':formulario, 'articulo':articulo})
 
+def login_request(request):
+
+    if request.method == "POST":
+        form= AuthenticationForm(request, data = request.POST)
+
+        if form.is_valid():
+            usuario=form.cleaned_data.get('username')
+            contra=form.cleaned_data.get('password')
+
+            user=authenticate(username=usuario, password=contra)
+
+            if user is not None:
+                login(request, user)
+
+                return render(request, 'inicio.html', {"mensaje":f"Bienvenido {usuario}"})
+            
+            else:
+
+                return render(request, 'login.html', {"mensaje":"Datos ingresados incorrectos"})
+            
+        else:
+
+            return render(request, "login.html", {"mensaje": "Error, formulario erroneo", "form":form})
         
+    form = AuthenticationForm()
+
+    return render(request, "login.html", {"form":form})
+
+def register(request):
+
+    if request.method == "POST":
+
+        form = UserCreationForm(request.POST)
+        
+        if form.is_valid():
+
+            username = form.cleaned_data['username']
+            
+            form.save()
+            return render(request, 'inicio.html', {"mensaje": "Usuario creado correctamente"})
+        
+    else: 
+
+        form = UserCreationForm()
+
+    return render (request, "registro.html", {"form": form})    
 
 
 

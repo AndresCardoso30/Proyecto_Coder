@@ -11,5 +11,6 @@ urlpatterns = [
     path("opiniones", mostrar_opinion, name="opiniones"),
     path("eliminar_articulo/<id>", eliminar_articulo, name="eliminar_articulo"),
     path("editar_articulo/<id>", editar_articulo, name="editar_articulo"),
-    
+    path('login', login_request, name="login"),
+    path('registro', register, name="registro"),
 ]

@@ -26,3 +26,5 @@ class Opiniones(models.Model):
 
     def __str__(self):
         return f"{self.articulo} ({self.fecha.day}/{self.fecha.month}/{self.fecha.year}): {self.comentario}"
+    
+
