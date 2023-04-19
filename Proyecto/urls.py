@@ -20,7 +20,7 @@ from App1.views import buscar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', inicio, name="inicio"),
+    path('inicio/', inicio, name="inicio"),
     path('App1/', include('App1.urls')),
     path("buscar/", buscar),
 ]

@@ -33,7 +33,7 @@
         display:inline-block;
         width: 100px;
         color: bisque;
-        padding: 10px 16px;
+        padding: 1px 1px;
         text-decoration: none;
         text-align: center;
         margin-left: 100px;
@@ -69,12 +69,17 @@
     <nav class="navbar navbar-light bg-light static-top" id="barra">
         <div class="container" id="div">
             <a class="navbar-brand" href="{% url 'inicio' %}" id="a">Inicio</a>
-            <a class="navbar-brand" href="{% url 'crear_usuario' %}" id="a">Crear usuario</a>
-            <a class="navbar-brand" href="{% url 'crear_articulo' %}" id="a">Crear articulo</a>
             <a class="navbar-brand" href="{% url 'buscar' %}" id="a">Buscar articulo</a>
             <a class="navbar-brand" href="{% url 'opiniones' %}" id="a">Opiniones</a>
+            {% if user.is_authenticated %}
+            <a class="navbar-brand" href="{% url 'crear_usuario' %}" id="a">Crear usuario</a>
+            <a class="navbar-brand" href="{% url 'crear_articulo' %}" id="a">Crear articulo</a>
+            <p style="color:white"> Bienvenido: {{user.username}}</p>
+            <a class="navbar-brand" href="{% url 'Logout' %}" id="a">Logout</a>
+            {% else %}
             <a class="navbar-brand" href="{% url 'login' %}" id="a">Log in</a>
-            <a class="navbar-brand" href="{% url 'registro' %}" id="a">Registrarse</a>
+            <a class="btn btn-danger" href="{% url 'registro' %}" id="a">Registrarse</a>
+            {% endif %}
             <a class="btn btn-primary" href="#NADAAUN" id="a">INICIAR</a>
         </div>
     </nav>

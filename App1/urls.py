@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from App1.views import *
+from Proyecto.views_ import inicio
+from django.contrib.auth.views import LogoutView
 
 
 urlpatterns = [
@@ -13,4 +15,6 @@ urlpatterns = [
     path("editar_articulo/<id>", editar_articulo, name="editar_articulo"),
     path('login', login_request, name="login"),
     path('registro', register, name="registro"),
+    path('logout', LogoutView.as_view(), name='Logout'),
+    path('inicio/', inicio),
 ]

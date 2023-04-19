@@ -3,9 +3,12 @@ from App1.models import Usuario, Articulo, Opiniones
 from App1.forms import *
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
+@login_required
 def usuario_crear(request):
 
     if request.method == 'POST':
@@ -24,6 +27,7 @@ def usuario_crear(request):
 
     return render(request, "usuario_crear.html", {"formulario":formulario})
 
+@login_required
 def crear_articulo(request):
     if request.method == 'POST':
 
@@ -65,6 +69,7 @@ def buscar(request):
     
     return render(request, "limpio.html", {"mensaje":mensaje})
 
+@login_required
 def crear_opinion(request):
 
     
@@ -92,6 +97,7 @@ def mostrar_opinion(request):
 
     return render(request, "mostrar_opiniones.html", {"opiniones": opiniones})
 
+@login_required
 def eliminar_articulo(request, id):
 
     articulo=Articulo.objects.get(id=id)
@@ -99,6 +105,7 @@ def eliminar_articulo(request, id):
     mensaje="Articulo eliminado correctamente."
     return render(request, "busqueda_articulos.html")
 
+@login_required
 def editar_articulo(request, id):
     articulo=Articulo.objects.get(id=id)
     if request.method == "POST":
@@ -149,7 +156,7 @@ def register(request):
 
     if request.method == "POST":
 
-        form = UserCreationForm(request.POST)
+        form = RegistroUsuarioForm(request.POST)
         
         if form.is_valid():
 
@@ -160,24 +167,10 @@ def register(request):
         
     else: 
 
-        form = UserCreationForm()
+        form = RegistroUsuarioForm()
 
     return render (request, "registro.html", {"form": form})    
 
 
 
-
-
-
-
-# PARA USO POSTERIOR
-#email=informacion['email']
-            #emails_existente=Usuario.objects.filter(email__icontains=email)
-
-
-            #if emails_existente:
-                #if email in emails_existente:
-                    #nota="Email ya existente."
-                    #formulario = UsuarioCrear()
-                    #return render(request, "usuario_crear.html", {"nota":nota})
            
