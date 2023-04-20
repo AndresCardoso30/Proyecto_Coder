@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %} Editar Perfil {% endblock %}
+
+{% block content %} 
+<body>
+<form action="" method="POST">{% csrf_token %}
+<table>
+
+  {{miFormulario.as_table}}
+
+</table>
+
+
+
+<input type="submit", value="Enviar">
+
+</form>
+
+</body>
+{% endblock %}

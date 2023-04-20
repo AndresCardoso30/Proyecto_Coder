@@ -75,6 +75,7 @@
             <a class="navbar-brand" href="{% url 'crear_usuario' %}" id="a">Crear usuario</a>
             <a class="navbar-brand" href="{% url 'crear_articulo' %}" id="a">Crear articulo</a>
             <p style="color:white"> Bienvenido: {{user.username}}</p>
+            <a class="navbar-brand" href="{% url 'editar_perfil' %}" id="a">Editar perfil</a>
             <a class="navbar-brand" href="{% url 'Logout' %}" id="a">Logout</a>
             {% else %}
             <a class="navbar-brand" href="{% url 'login' %}" id="a">Log in</a>
