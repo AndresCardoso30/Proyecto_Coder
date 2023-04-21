@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %} Inicio {% endblock %}
+
+{% block content %} 
+<body>
+
+<ul>
+
+        {% for user in users %}
+            <li>
+                {{user.username}} 
+                <a class="btn btn danger" href="{% url 'chat' user.id %}">Chatear</a>
+
+
+            </li>
+            
+        {% endfor %}
+    </ul>
+</body>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %} Chat con {{receptor.username}} {% endblock %}
+
+{% block content %} 
+<body>
+<h1>{{mensaje}}</h1>
+<ul>
+
+        {% for chat in chats %}
+            <li>
+                {{chat.mensaje}} 
+                
+            </li>
+            
+        {% endfor %}
+</ul>
+<p>Enviar nuevo mensaje:</p>
+<form action="" method="POST"> {% csrf_token %}
+    <table>
+        {{miFormulario.as_table}}
+
+
+    </table>
+
+    <input type="submit", value="Enviar",>
+
+
+
+</form>
+</body>
+{% endblock %}

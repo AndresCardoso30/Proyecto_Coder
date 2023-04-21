@@ -4,3 +4,4 @@ from App1.models import *
 admin.site.register(Usuario)
 admin.site.register(Articulo)
 admin.site.register(Opiniones)
+admin.site.register(Mensaje)

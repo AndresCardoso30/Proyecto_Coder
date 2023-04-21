@@ -3,6 +3,8 @@ from django.urls import path, include
 from App1.views import *
 from Proyecto.views_ import inicio
 from django.contrib.auth.views import LogoutView
+from django.views.generic import ListView
+
 
 
 urlpatterns = [
@@ -18,4 +20,8 @@ urlpatterns = [
     path('logout', LogoutView.as_view(), name='Logout'),
     path('inicio/', inicio),
     path('editar_perfil', editarPerfil, name="editar_perfil"),
+    path('usuarios', buscar_usuarios, name="usuarios"),
+    path('chat/<id>', chatear, name='chat'),
+    path('mostrar_chat', mostrar_chat, name='mostrar_chat'),
+    
 ]

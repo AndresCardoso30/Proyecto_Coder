@@ -1,10 +1,13 @@
-from django.shortcuts import render, HttpResponse
-from App1.models import Usuario, Articulo, Opiniones
+from django.shortcuts import render, HttpResponse, redirect
+from App1.models import Usuario, Articulo, Opiniones, Mensaje
 from App1.forms import *
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib.auth import get_user_model
+
 
 
 
@@ -198,3 +201,64 @@ def editarPerfil(request):
     
     return render(request, 'editar_perfil.html', {"miFormulario":miFormulario, "usuario":usuario})
            
+
+
+def buscar_usuarios(request):
+    User = get_user_model()
+    users = User.objects.all()
+
+    return render(request, "usuarios.html", {"users":users})
+
+
+def chatear(request, id):
+    emisor = request.user
+    receptor = User.objects.get(id=id)
+    chats = Mensaje.objects.filter(clave1__icontains=emisor.id).filter(clave2__icontains=receptor.id)
+    clave1=emisor.id 
+    clave2=receptor.id    
+
+    if chats:
+        mensaje=f"Chats con {receptor.username}"
+    else:
+        mensaje="No hay chats"
+
+    if request.method == "POST":
+        
+        miFormulario = MensajeForm(request.POST, initial={'emisor':emisor, 'receptor':receptor, 'clave1':clave1, 'clave2':clave2})
+
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            chat=Mensaje(emisor=informacion['emisor'], receptor=informacion['receptor'], mensaje=informacion['mensaje'], clave1=informacion['clave1'], clave2=informacion['clave2'])
+            chats = Mensaje.objects.filter(clave1__icontains=emisor.id).filter(clave2__icontains=receptor.id)
+            chat.save()
+            
+
+            return render(request, "chat.html", {"miFormulario":miFormulario, "chats":chats, "mensaje":mensaje, 'receptor':receptor})
+        
+    mensaje2= "Hay errores wey"
+
+    miFormulario = MensajeForm(initial={'emisor':emisor, 'receptor':receptor, 'clave1':clave1, 'clave2':clave2})
+
+    return render(request, "chat.html", {"miFormulario":miFormulario, "mensaje":mensaje, "mensaje2":mensaje2, "chats":chats})
+
+
+
+
+
+
+def mostrar_chat(request, id):
+    emisor = request.user
+    receptor = User.objects.get(id=id)
+    chats = Mensaje.objects.get(clave1=emisor.id, clave2=receptor.id)
+    clave1=emisor.id 
+    clave2=receptor.id
+    miFormulario = MensajeForm(initial={'emisor':emisor, 'receptor':receptor, 'clave1':clave1, 'clave2':clave2})
+
+    return render(request, "chat.html", {"miFormulario":miFormulario, "chats":chats, "receptor":receptor})
+
+    
+        
+    
+
+    
+
