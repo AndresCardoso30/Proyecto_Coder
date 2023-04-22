@@ -5,11 +5,12 @@
 {% block content %} 
 <body>
 <h1>{{mensaje}}</h1>
-<ul>
+<ul style="background-image: url(https://th.bing.com/th/id/R.6e19ac2ea29d28d193e0b7f0e29572c6?rik=GMiffjQgazU4%2fg&pid=ImgRaw&r=0);">
 
         {% for chat in chats %}
             <li>
-                {{chat.mensaje}} 
+                <h4 style="font-family: Verdana, Geneva, Tahoma, sans-serif; background-color: bisque; width: 80px; text-transform: uppercase;">{{chat.emisor}}</h4>
+                <h4 style="color: whitesmoke;">{{chat.mensaje}}</h4>
                 
             </li>
             

@@ -8,6 +8,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth import get_user_model
 
+from itertools import chain
+from operator import attrgetter
+
 
 
 
@@ -202,20 +205,24 @@ def editarPerfil(request):
     return render(request, 'editar_perfil.html', {"miFormulario":miFormulario, "usuario":usuario})
            
 
-
+@login_required
 def buscar_usuarios(request):
     User = get_user_model()
     users = User.objects.all()
 
     return render(request, "usuarios.html", {"users":users})
 
-
+@login_required
 def chatear(request, id):
     emisor = request.user
     receptor = User.objects.get(id=id)
     chats = Mensaje.objects.filter(clave1__icontains=emisor.id).filter(clave2__icontains=receptor.id)
-    clave1=emisor.id 
-    clave2=receptor.id    
+    chats_receptor = Mensaje.objects.filter(clave1__icontains=receptor.id).filter(clave2__icontains=emisor.id)
+
+    resultado = sorted(chain(chats, chats_receptor), key=attrgetter('tiempo'))
+
+    clave1=emisor.id
+    clave2=receptor.id   
 
     if chats:
         mensaje=f"Chats con {receptor.username}"
@@ -229,17 +236,21 @@ def chatear(request, id):
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
             chat=Mensaje(emisor=informacion['emisor'], receptor=informacion['receptor'], mensaje=informacion['mensaje'], clave1=informacion['clave1'], clave2=informacion['clave2'])
-            chats = Mensaje.objects.filter(clave1__icontains=emisor.id).filter(clave2__icontains=receptor.id)
             chat.save()
+            chats = Mensaje.objects.filter(clave1__icontains=emisor.id).filter(clave2__icontains=receptor.id)
+            chats_receptor = Mensaje.objects.filter(clave1__icontains=receptor.id).filter(clave2__icontains=emisor.id)
+            resultado = sorted(chain(chats, chats_receptor), key=attrgetter('tiempo'))
+            
+            
             
 
-            return render(request, "chat.html", {"miFormulario":miFormulario, "chats":chats, "mensaje":mensaje, 'receptor':receptor})
+            return render(request, "chat.html", {"miFormulario":miFormulario, "chats":resultado, "mensaje":mensaje})
         
     mensaje2= "Hay errores wey"
 
     miFormulario = MensajeForm(initial={'emisor':emisor, 'receptor':receptor, 'clave1':clave1, 'clave2':clave2})
 
-    return render(request, "chat.html", {"miFormulario":miFormulario, "mensaje":mensaje, "mensaje2":mensaje2, "chats":chats})
+    return render(request, "chat.html", {"miFormulario":miFormulario, "mensaje":mensaje, "mensaje2":mensaje2, "chats":resultado})
 
 
 
